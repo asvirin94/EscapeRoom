@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
+import Footer from '../../components/footer/footer';
 import ShortHeader from '../../components/header/short-header';
-import { AppRoutes } from '../../consts';
 
-export default function QuestPage() {
+export default function AuthorizationPage() {
   return (
     <>
       <div className="visually-hidden">
@@ -299,8 +298,8 @@ export default function QuestPage() {
         </svg>
       </div>
       <div className="wrapper">
-        <ShortHeader />
-        <main className="decorated-page quest-page">
+        <ShortHeader isAuthPage/>
+        <main className="decorated-page login">
           <div className="decorated-page__decor" aria-hidden="true">
             <picture>
               <source
@@ -320,103 +319,67 @@ export default function QuestPage() {
             </picture>
           </div>
           <div className="container container--size-l">
-            <div className="quest-page__content">
-              <h1 className="title title--size-l title--uppercase quest-page__title">
-              Маньяк
-              </h1>
-              <p className="subtitle quest-page__subtitle">
-                <span className="visually-hidden">Жанр:</span>Ужасы
-              </p>
-              <ul className="tags tags--size-l quest-page__tags">
-                <li className="tags__item">
-                  <svg width="11" height="14" aria-hidden="true">
-                    <use xlinkHref="#icon-person"></use>
-                  </svg>3&ndash;6&nbsp;чел
-                </li>
-                <li className="tags__item">
-                  <svg width="14" height="14" aria-hidden="true">
-                    <use xlinkHref="#icon-level"></use>
-                  </svg>Средний
-                </li>
-              </ul>
-              <p className="quest-page__description">
-              В&nbsp;комнате с&nbsp;приглушённым светом несколько человек,
-              незнакомых друг с&nbsp;другом, приходят в&nbsp;себя. Никто
-              не&nbsp;помнит, что произошло прошлым вечером. Руки и&nbsp;ноги
-              связаны, но&nbsp;одному из&nbsp;вас получилось освободиться.
-              На&nbsp;стене висит пугающий таймер и&nbsp;запущен отсчёт
-              60&nbsp;минут. Сможете&nbsp;ли вы&nbsp;разобраться
-              в&nbsp;стрессовой ситуации, помочь другим, разобраться что
-              произошло и&nbsp;выбраться из&nbsp;комнаты?
-              </p>
-              <Link
-                className="btn btn--accent btn--cta quest-page__btn"
-                to={AppRoutes.Booking}
-              >Забронировать
-              </ Link>
+            <div className="login__form">
+              <form
+                className="login-form"
+                action="https://echo.htmlacademy.ru/"
+                method="post"
+              >
+                <div className="login-form__inner-wrapper">
+                  <h1 className="title title--size-s login-form__title">Вход</h1>
+                  <div className="login-form__inputs">
+                    <div className="custom-input login-form__input">
+                      <label className="custom-input__label" htmlFor="email">E&nbsp;&ndash;&nbsp;mail
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="Адрес электронной почты"
+                        required
+                      />
+                    </div>
+                    <div className="custom-input login-form__input">
+                      <label className="custom-input__label" htmlFor="password">Пароль
+                      </label>
+                      <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Пароль"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <button
+                    className="btn btn--accent btn--general login-form__submit"
+                    type="submit"
+                  >
+                  Войти
+                  </button>
+                </div>
+                <label className="custom-checkbox login-form__checkbox">
+                  <input
+                    type="checkbox"
+                    id="id-order-agreement"
+                    name="user-agreement"
+                    required
+                  />
+                  <span className="custom-checkbox__icon">
+                    <svg width="20" height="17" aria-hidden="true">
+                      <use xlinkHref="#icon-tick"></use>
+                    </svg>
+                  </span>
+                  <span className="custom-checkbox__label">Я&nbsp;согласен с
+                    <a className="link link--active-silver link--underlined" href="#"> правилами обработки персональных данных
+                    </a>&nbsp;и пользовательским соглашением
+                  </span>
+                </label>
+              </form>
             </div>
           </div>
         </main>
-        <footer className="footer">
-          <div className="container container--size-l">
-            <div className="socials">
-              <ul className="socials__list">
-                <li className="socials__item">
-                  <a
-                    className="socials__link"
-                    href="#"
-                    aria-label="Skype"
-                    target="_blank"
-                    rel="nofollow noopener noreferrer"
-                  >
-                    <svg
-                      className="socials__icon socials__icon--default"
-                      width="28"
-                      height="28"
-                      aria-hidden="true"
-                    >
-                      <use xlinkHref="#icon-skype-default"></use>
-                    </svg>
-                    <svg
-                      className="socials__icon socials__icon--interactive"
-                      width="28"
-                      height="28"
-                      aria-hidden="true"
-                    >
-                      <use xlinkHref="#icon-skype-interactive"></use>
-                    </svg>
-                  </a>
-                </li>
-                <li className="socials__item">
-                  <a
-                    className="socials__link"
-                    href="#"
-                    aria-label="ВКонтакте"
-                    target="_blank"
-                    rel="nofollow noopener noreferrer"
-                  >
-                    <svg
-                      className="socials__icon socials__icon--default"
-                      width="28"
-                      height="28"
-                      aria-hidden="true"
-                    >
-                      <use xlinkHref="#icon-vk-default"></use>
-                    </svg>
-                    <svg
-                      className="socials__icon socials__icon--interactive"
-                      width="28"
-                      height="28"
-                      aria-hidden="true"
-                    >
-                      <use xlinkHref="#icon-vk-interactive"></use>
-                    </svg>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

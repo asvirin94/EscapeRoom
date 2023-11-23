@@ -8,7 +8,7 @@ import StartPageTitle from '../../components/start-page-title/start-page-title';
 export default function StartPage() {
   return (
     <div className="wrapper">
-      <Header />
+      <Header isMainPage/>
       <main className="page-content">
         <div className="container">
           <StartPageTitle />
@@ -18,6 +18,7 @@ export default function StartPage() {
               <DifficultFilter />
             </form>
           </div>
+          <h2 className="title visually-hidden">Выберите квест</h2>
           <QuestsList />
         </div>
       </main>

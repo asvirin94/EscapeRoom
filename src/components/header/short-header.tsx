@@ -4,11 +4,11 @@ import Logo from '../logo/logo';
 import LoginButton from '../login-button/login-button';
 
 type props = {
-  isMainPage?: boolean;
-  isMyQuestsPage?: boolean;
+  isAuthPage?: boolean;
+  isContactsPage?: boolean;
 }
 
-export default function Header({isMainPage, isMyQuestsPage}: props) {
+export default function ShortHeader({isAuthPage, isContactsPage}: props) {
   return (
     <header className="header">
       <div className="container container--size-l">
@@ -16,18 +16,15 @@ export default function Header({isMainPage, isMyQuestsPage}: props) {
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <Link className={`link ${isMainPage ? 'active' : ''}`} to={AppRoutes.Main}>Квесты</ Link>
+              <Link className='link' to={AppRoutes.Main}>Квесты</ Link>
             </li>
             <li className="main-nav__item">
-              <Link className='link' to={AppRoutes.Contacts}>Контакты</ Link>
-            </li>
-            <li className="main-nav__item">
-              <Link className={`link ${isMyQuestsPage ? 'active' : ''}`} to={AppRoutes.Quests}>Мои бронирования</ Link>
+              <Link className={`link ${isContactsPage ? 'active' : ''}`} to={AppRoutes.Contacts}>Контакты</ Link>
             </li>
           </ul>
         </nav>
         <div className="header__side-nav">
-          <LoginButton />
+          {isAuthPage ?? <LoginButton />}
           <a
             className="link header__side-item header__phone-link"
             href="tel:88003335599"

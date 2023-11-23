@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import ShortHeader from '../../components/header/short-header';
-import { AppRoutes } from '../../consts';
+import Footer from '../../components/footer/footer';
+import Header from '../../components/header/header';
+import QuestsList from '../../components/quests-list/quests-list';
 
-export default function QuestPage() {
+export default function MyQuestsPage() {
   return (
     <>
       <div className="visually-hidden">
@@ -299,124 +299,36 @@ export default function QuestPage() {
         </svg>
       </div>
       <div className="wrapper">
-        <ShortHeader />
-        <main className="decorated-page quest-page">
+        <Header isMyQuestsPage/>
+        <main className="page-content decorated-page">
           <div className="decorated-page__decor" aria-hidden="true">
             <picture>
               <source
                 type="image/webp"
                 srcSet="
-                img/content/maniac/maniac-size-m.webp,
-                img/content/maniac/maniac-size-m@2x.webp 2x
+                img/content/maniac/maniac-bg-size-m.webp,
+                img/content/maniac/maniac-bg-size-m@2x.webp 2x
               "
               />
               <img
-                src="img/content/maniac/maniac-size-m.jpg"
-                srcSet="img/content/maniac/maniac-size-m@2x.jpg 2x"
+                src="img/content/maniac/maniac-bg-size-m.jpg"
+                srcSet="img/content/maniac/maniac-bg-size-m@2x.jpg 2x"
                 width="1366"
-                height="768"
+                height="1959"
                 alt=""
               />
             </picture>
           </div>
-          <div className="container container--size-l">
-            <div className="quest-page__content">
-              <h1 className="title title--size-l title--uppercase quest-page__title">
-              Маньяк
+          <div className="container">
+            <div className="page-content__title-wrapper">
+              <h1 className="title title--size-m page-content__title">
+              Мои бронирования
               </h1>
-              <p className="subtitle quest-page__subtitle">
-                <span className="visually-hidden">Жанр:</span>Ужасы
-              </p>
-              <ul className="tags tags--size-l quest-page__tags">
-                <li className="tags__item">
-                  <svg width="11" height="14" aria-hidden="true">
-                    <use xlinkHref="#icon-person"></use>
-                  </svg>3&ndash;6&nbsp;чел
-                </li>
-                <li className="tags__item">
-                  <svg width="14" height="14" aria-hidden="true">
-                    <use xlinkHref="#icon-level"></use>
-                  </svg>Средний
-                </li>
-              </ul>
-              <p className="quest-page__description">
-              В&nbsp;комнате с&nbsp;приглушённым светом несколько человек,
-              незнакомых друг с&nbsp;другом, приходят в&nbsp;себя. Никто
-              не&nbsp;помнит, что произошло прошлым вечером. Руки и&nbsp;ноги
-              связаны, но&nbsp;одному из&nbsp;вас получилось освободиться.
-              На&nbsp;стене висит пугающий таймер и&nbsp;запущен отсчёт
-              60&nbsp;минут. Сможете&nbsp;ли вы&nbsp;разобраться
-              в&nbsp;стрессовой ситуации, помочь другим, разобраться что
-              произошло и&nbsp;выбраться из&nbsp;комнаты?
-              </p>
-              <Link
-                className="btn btn--accent btn--cta quest-page__btn"
-                to={AppRoutes.Booking}
-              >Забронировать
-              </ Link>
             </div>
+            <QuestsList />
           </div>
         </main>
-        <footer className="footer">
-          <div className="container container--size-l">
-            <div className="socials">
-              <ul className="socials__list">
-                <li className="socials__item">
-                  <a
-                    className="socials__link"
-                    href="#"
-                    aria-label="Skype"
-                    target="_blank"
-                    rel="nofollow noopener noreferrer"
-                  >
-                    <svg
-                      className="socials__icon socials__icon--default"
-                      width="28"
-                      height="28"
-                      aria-hidden="true"
-                    >
-                      <use xlinkHref="#icon-skype-default"></use>
-                    </svg>
-                    <svg
-                      className="socials__icon socials__icon--interactive"
-                      width="28"
-                      height="28"
-                      aria-hidden="true"
-                    >
-                      <use xlinkHref="#icon-skype-interactive"></use>
-                    </svg>
-                  </a>
-                </li>
-                <li className="socials__item">
-                  <a
-                    className="socials__link"
-                    href="#"
-                    aria-label="ВКонтакте"
-                    target="_blank"
-                    rel="nofollow noopener noreferrer"
-                  >
-                    <svg
-                      className="socials__icon socials__icon--default"
-                      width="28"
-                      height="28"
-                      aria-hidden="true"
-                    >
-                      <use xlinkHref="#icon-vk-default"></use>
-                    </svg>
-                    <svg
-                      className="socials__icon socials__icon--interactive"
-                      width="28"
-                      height="28"
-                      aria-hidden="true"
-                    >
-                      <use xlinkHref="#icon-vk-interactive"></use>
-                    </svg>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );
