@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../consts';
 import Header from '../../components/header/header';
 import { useForm } from 'react-hook-form';
+import { checkHasDigits, checkHasLetter, checkPasswordLength } from '../../utils';
 
 export default function AuthorizationPage() {
   const dispatch = useAppDispatch();
@@ -60,7 +61,10 @@ export default function AuthorizationPage() {
                       type="email"
                       id="email"
                       placeholder="Адрес электронной почты"
-                      {...register('userEmail', {required: 'Укажите почту'})}
+                      {...register('userEmail',
+                        {
+                          required: 'Укажите почту'
+                        })}
                       aria-invalid={errors.userEmail ? 'true' : 'false'}
                     />
                     {errors.userEmail && <><br/><span style={{color: 'red'}} role="alert">{errors.userEmail?.message as string}</span></>}
@@ -72,7 +76,14 @@ export default function AuthorizationPage() {
                       type="password"
                       id="password"
                       placeholder="Пароль"
-                      {...register('userPassword', {required: 'Введите пароль'})}
+                      {...register('userPassword', {
+                        required: 'Введите пароль',
+                        validate: {
+                          checkHasDigits,
+                          checkHasLetter,
+                          checkPasswordLength
+                        }
+                      })}
                       aria-invalid={errors.userPassword ? 'true' : 'false'}
                     />
                     {errors.userPassword && <><br/><span style={{color: 'red'}} role="alert">{errors.userPassword?.message as string}</span></>}
