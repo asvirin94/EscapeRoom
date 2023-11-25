@@ -1,35 +1,28 @@
-import { useState } from 'react';
 import Footer from '../../components/footer/footer';
-import { UserData } from '../../types/types';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../consts';
 import Header from '../../components/header/header';
+import { useForm } from 'react-hook-form';
 
 export default function AuthorizationPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [userAuthData, setUserAuthData] = useState<UserData>({email: '', password: ''});
 
-  const handleEmailChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setUserAuthData({...userAuthData, email: evt.target.value});
-  };
+  const {register, handleSubmit, formState: { errors }, getValues} = useForm();
 
-  const handlePasswordChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setUserAuthData({...userAuthData, password: evt.target.value});
-  };
-
-  const handleFormSubmit = (evt: { preventDefault: () => void }) => {
-    evt.preventDefault();
-
-    dispatch(loginAction({email: userAuthData.email, password: userAuthData.password}));
-    navigate(AppRoute.Main);
+  const onSubmit = () => {
+    const {userEmail, userPassword} = getValues();
+    if(typeof userEmail === 'string' && typeof userPassword === 'string') {
+      dispatch(loginAction({email: userEmail, password: userPassword}));
+      navigate(AppRoute.Main);
+    }
   };
 
   return (
     <div className="wrapper">
-      <Header />
+      <Header isAuthPage/>
       <main className="decorated-page login">
         <div className="decorated-page__decor" aria-hidden="true">
           <picture>
@@ -52,7 +45,7 @@ export default function AuthorizationPage() {
         <div className="container container--size-l">
           <div className="login__form">
             <form
-              onSubmit={handleFormSubmit}
+              onSubmit={(evt) => void handleSubmit(onSubmit)(evt)}
               className="login-form"
               action="https://echo.htmlacademy.ru/"
               method="post"
@@ -67,10 +60,10 @@ export default function AuthorizationPage() {
                       type="email"
                       id="email"
                       placeholder="Адрес электронной почты"
-                      onChange={handleEmailChange}
-                      value={userAuthData.email}
-                      name='email'
+                      {...register('userEmail', {required: 'Укажите почту'})}
+                      aria-invalid={errors.userEmail ? 'true' : 'false'}
                     />
+                    {errors.userEmail && <><br/><span style={{color: 'red'}} role="alert">{errors.userEmail?.message as string}</span></>}
                   </div>
                   <div className="custom-input login-form__input">
                     <label className="custom-input__label" htmlFor="password">Пароль
@@ -79,9 +72,10 @@ export default function AuthorizationPage() {
                       type="password"
                       id="password"
                       placeholder="Пароль"
-                      onChange={handlePasswordChange}
-                      value={userAuthData.password}
+                      {...register('userPassword', {required: 'Введите пароль'})}
+                      aria-invalid={errors.userPassword ? 'true' : 'false'}
                     />
+                    {errors.userPassword && <><br/><span style={{color: 'red'}} role="alert">{errors.userPassword?.message as string}</span></>}
                   </div>
                 </div>
                 <button
@@ -95,9 +89,10 @@ export default function AuthorizationPage() {
                 <input
                   type="checkbox"
                   id="id-order-agreement"
-                  name="user-agreement"
-                  required
+                  {...register('userAgreement', {required: 'Выберите этот пункт'})}
+                  aria-invalid={errors.userAgreement ? 'true' : 'false'}
                 />
+                {errors.userAgreement && <><br/><span style={{color: 'red'}} role="alert">{errors.userAgreement?.message as string}</span></>}
                 <span className="custom-checkbox__icon">
                   <svg width="20" height="17" aria-hidden="true">
                     <use xlinkHref="#icon-tick"></use>

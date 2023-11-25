@@ -9,10 +9,13 @@ type props = {
   isMainPage?: boolean;
   isMyQuestsPage?: boolean;
   isContactsPage?: boolean;
+  isAuthPage?: boolean;
 }
 
-export default function Header({isMainPage, isMyQuestsPage, isContactsPage}: props) {
+export default function Header({isMainPage, isMyQuestsPage, isContactsPage, isAuthPage}: props) {
   const userStatus = useAppSelector((state) => state[NameSpace.User].authorizationStatus);
+
+  const buttonElement = () => userStatus === AuthorizationStatus.NoAuth ? <LoginButton /> : <LogoutButton />;
 
   return (
     <header className="header">
@@ -33,7 +36,7 @@ export default function Header({isMainPage, isMyQuestsPage, isContactsPage}: pro
           </ul>
         </nav>
         <div className="header__side-nav">
-          {userStatus === AuthorizationStatus.NoAuth ? <LoginButton /> : <LogoutButton />}
+          {!isAuthPage && buttonElement()}
           <a
             className="link header__side-item header__phone-link"
             href="tel:88003335599"
