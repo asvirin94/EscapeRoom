@@ -23,3 +23,17 @@ export const loadQuestForPageAction = createAsyncThunk<
   const {data} = await api.get<QuestForPage>(`quest/${id}`);
   return data;
 });
+
+export const checkAuthAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    extra: AxiosInstance;
+  }
+>('checkAuth', async(_arg, {extra: api}) => {
+  await api.get('/login');
+});
+
+export const loginAction = createAsyncThunk<
+  
+>

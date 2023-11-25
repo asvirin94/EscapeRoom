@@ -31,3 +31,8 @@ export type AppDispatch = typeof store.dispatch;
 export type Id = {
   id: string;
 }
+
+export type AuthData = {
+  email: string;
+  token: string;
+};

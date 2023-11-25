@@ -9,7 +9,8 @@ export const AppRoute = {
 
 export const NameSpace = {
   Data: 'DATA',
-  App: 'APP'
+  App: 'APP',
+  User: 'USER'
 } as const;
 
 export const DifficultLevel = {
@@ -42,4 +43,10 @@ export const LevelFilterName = {
   medium: 'medium',
   hard: 'hard',
   any: 'any'
+} as const;
+
+export const AuthorizationStatus = {
+  Auth: 'AUTH',
+  NoAuth: 'NO_AUTH',
+  Unknown: 'UNKNOWN'
 } as const;
