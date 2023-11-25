@@ -2,7 +2,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import StartPage from '../../pages/start-page/start-page';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NotFound from '../../pages/not-found/not-found';
-import { AppRoutes } from '../../consts';
+import { AppRoute } from '../../consts';
 import QuestPage from '../../pages/quest-page/quest-page';
 import ContactsPage from '../../pages/contacts-page/contacts-page';
 import AuthorizationPage from '../../pages/authorization-page/authorization-page';
@@ -14,13 +14,13 @@ export default function App(): JSX.Element {
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
-          <Route path={AppRoutes.Main}>
+          <Route path={AppRoute.Main}>
             <Route index element={<StartPage />} />
-            <Route path={AppRoutes.Contacts} element={<ContactsPage />}/>
-            <Route path={AppRoutes.Quest} element={<QuestPage />} />
-            <Route path={AppRoutes.Login} element={<AuthorizationPage />} />
-            <Route path={AppRoutes.Booking} element={<BookingPage />} />
-            <Route path={AppRoutes.Quests} element={<MyQuestsPage />} />
+            <Route path={AppRoute.Contacts} element={<ContactsPage />}/>
+            <Route path={AppRoute.Quest} element={<QuestPage />} />
+            <Route path={AppRoute.Login} element={<AuthorizationPage />} />
+            <Route path={AppRoute.Booking} element={<BookingPage />} />
+            <Route path={AppRoute.Quests} element={<MyQuestsPage />} />
           </Route>
           <Route path='*' element={<NotFound />}/>
         </Routes>

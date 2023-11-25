@@ -1,10 +1,17 @@
+import { GenreFilterName, NameSpace } from '../../consts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setGenreFilter } from '../../store/app-process/app-process.slice';
+
 export default function GenreFilter() {
+  const dispatch = useAppDispatch();
+  const genreFilter = useAppSelector((state) => state[NameSpace.App].type);
+
   return (
     <fieldset className="filter__section">
       <legend className="visually-hidden">Тематика</legend>
       <ul className="filter__list">
-        <li className="filter__item">
-          <input type="radio" name="type" id="all" defaultChecked />
+        <li className="filter__item" onChange={() => dispatch(setGenreFilter(GenreFilterName.any))}>
+          <input type="radio" name="type" id="all" checked={genreFilter === GenreFilterName.any} readOnly/>
           <label className="filter__label" htmlFor="all">
             <svg
               className="filter__icon"
@@ -17,8 +24,8 @@ export default function GenreFilter() {
             <span className="filter__label-text">Все квесты</span>
           </label>
         </li>
-        <li className="filter__item">
-          <input type="radio" name="type" id="adventure" />
+        <li className="filter__item" onChange={() => dispatch(setGenreFilter(GenreFilterName.adventures))}>
+          <input type="radio" name="type" id="adventure" checked={genreFilter === GenreFilterName.adventures} readOnly/>
           <label className="filter__label" htmlFor="adventure">
             <svg
               className="filter__icon"
@@ -31,8 +38,8 @@ export default function GenreFilter() {
             <span className="filter__label-text">Приключения</span>
           </label>
         </li>
-        <li className="filter__item">
-          <input type="radio" name="type" id="horror" />
+        <li className="filter__item" onChange={() => dispatch(setGenreFilter(GenreFilterName.horror))}>
+          <input type="radio" name="type" id="horror" checked={genreFilter === GenreFilterName.horror} readOnly/>
           <label className="filter__label" htmlFor="horror">
             <svg
               className="filter__icon"
@@ -44,8 +51,8 @@ export default function GenreFilter() {
             </svg><span className="filter__label-text">Ужасы</span>
           </label>
         </li>
-        <li className="filter__item">
-          <input type="radio" name="type" id="mystic" />
+        <li className="filter__item" onChange={() => dispatch(setGenreFilter(GenreFilterName.mystic))}>
+          <input type="radio" name="type" id="mystic" checked={genreFilter === GenreFilterName.mystic} readOnly/>
           <label className="filter__label" htmlFor="mystic">
             <svg
               className="filter__icon"
@@ -57,8 +64,8 @@ export default function GenreFilter() {
             </svg><span className="filter__label-text">Мистика</span>
           </label>
         </li>
-        <li className="filter__item">
-          <input type="radio" name="type" id="detective" />
+        <li className="filter__item" onChange={() => dispatch(setGenreFilter(GenreFilterName.detective))}>
+          <input type="radio" name="type" id="detective" checked={genreFilter === GenreFilterName.detective} readOnly/>
           <label className="filter__label" htmlFor="detective">
             <svg
               className="filter__icon"
@@ -70,8 +77,8 @@ export default function GenreFilter() {
             </svg><span className="filter__label-text">Детектив</span>
           </label>
         </li>
-        <li className="filter__item">
-          <input type="radio" name="type" id="sciFi" />
+        <li className="filter__item" onChange={() => dispatch(setGenreFilter(GenreFilterName['sci-fi']))}>
+          <input type="radio" name="type" id="sciFi" checked={genreFilter === GenreFilterName['sci-fi']} readOnly/>
           <label className="filter__label" htmlFor="sciFi">
             <svg
               className="filter__icon"

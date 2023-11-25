@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { AppRoutes } from '../../consts';
+import { AppRoute } from '../../consts';
 
 export default function LoginButton() {
   return (
-    <Link className="btn header__side-item header__login-btn" to={AppRoutes.Login}>Вход</ Link>
+    <Link className="btn header__side-item header__login-btn" to={AppRoute.Login}>Вход</ Link>
   );
 }

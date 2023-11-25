@@ -1,9 +1,33 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import ShortHeader from '../../components/header/short-header';
-import { AppRoutes } from '../../consts';
+import { AppRoute, DifficultLevel, Genre, NameSpace } from '../../consts';
+import Loading from '../../components/loading/loading';
+import { useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { loadQuestForPageAction } from '../../store/api-actions';
+import { dropQuestOnPage } from '../../store/data-process/data-process.slice';
 
 export default function QuestPage() {
-  return (
+  const dispatch = useAppDispatch();
+  const {id} = useParams();
+  const questOnPage = useAppSelector((state) => state[NameSpace.Data].questForPage);
+  const isInitialized = useRef(false);
+
+  useEffect(() => {
+    if(id && !isInitialized.current) {
+      dispatch(loadQuestForPageAction({id}));
+      isInitialized.current = true;
+    }
+
+    return (() => {
+      if(isInitialized.current) {
+        dispatch(dropQuestOnPage());
+      }
+    });
+  }, []);
+
+
+  return questOnPage ? (
     <>
       <div className="visually-hidden">
         <svg
@@ -305,14 +329,11 @@ export default function QuestPage() {
             <picture>
               <source
                 type="image/webp"
-                srcSet="
-                img/content/maniac/maniac-size-m.webp,
-                img/content/maniac/maniac-size-m@2x.webp 2x
-              "
+                srcSet={`${questOnPage.coverImgWebp}, ${questOnPage.coverImgWebp}@2x.webp 2x`}
               />
               <img
-                src="img/content/maniac/maniac-size-m.jpg"
-                srcSet="img/content/maniac/maniac-size-m@2x.jpg 2x"
+                src={questOnPage.coverImg}
+                srcSet={`${questOnPage.coverImg}@2x.webp 2x`}
                 width="1366"
                 height="768"
                 alt=""
@@ -322,36 +343,29 @@ export default function QuestPage() {
           <div className="container container--size-l">
             <div className="quest-page__content">
               <h1 className="title title--size-l title--uppercase quest-page__title">
-              Маньяк
+                {questOnPage.title}
               </h1>
               <p className="subtitle quest-page__subtitle">
-                <span className="visually-hidden">Жанр:</span>Ужасы
+                <span className="visually-hidden">Жанр:</span>{Genre[questOnPage.type]}
               </p>
               <ul className="tags tags--size-l quest-page__tags">
                 <li className="tags__item">
                   <svg width="11" height="14" aria-hidden="true">
                     <use xlinkHref="#icon-person"></use>
-                  </svg>3&ndash;6&nbsp;чел
+                  </svg>{questOnPage.peopleMinMax[0]}&ndash;{questOnPage.peopleMinMax[1]}&nbsp;чел
                 </li>
                 <li className="tags__item">
                   <svg width="14" height="14" aria-hidden="true">
                     <use xlinkHref="#icon-level"></use>
-                  </svg>Средний
+                  </svg>{DifficultLevel[questOnPage.level]}
                 </li>
               </ul>
               <p className="quest-page__description">
-              В&nbsp;комнате с&nbsp;приглушённым светом несколько человек,
-              незнакомых друг с&nbsp;другом, приходят в&nbsp;себя. Никто
-              не&nbsp;помнит, что произошло прошлым вечером. Руки и&nbsp;ноги
-              связаны, но&nbsp;одному из&nbsp;вас получилось освободиться.
-              На&nbsp;стене висит пугающий таймер и&nbsp;запущен отсчёт
-              60&nbsp;минут. Сможете&nbsp;ли вы&nbsp;разобраться
-              в&nbsp;стрессовой ситуации, помочь другим, разобраться что
-              произошло и&nbsp;выбраться из&nbsp;комнаты?
+                {questOnPage.description}
               </p>
               <Link
                 className="btn btn--accent btn--cta quest-page__btn"
-                to={AppRoutes.Booking}
+                to={AppRoute.Booking}
               >Забронировать
               </ Link>
             </div>
@@ -419,5 +433,5 @@ export default function QuestPage() {
         </footer>
       </div>
     </>
-  );
+  ) : <Loading />;
 }

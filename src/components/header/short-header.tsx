@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoutes } from '../../consts';
+import { AppRoute } from '../../consts';
 import Logo from '../logo/logo';
 import LoginButton from '../login-button/login-button';
 
@@ -16,10 +16,10 @@ export default function ShortHeader({isAuthPage, isContactsPage}: props) {
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <Link className='link' to={AppRoutes.Main}>Квесты</ Link>
+              <Link className='link' to={AppRoute.Main}>Квесты</ Link>
             </li>
             <li className="main-nav__item">
-              <Link className={`link ${isContactsPage ? 'active' : ''}`} to={AppRoutes.Contacts}>Контакты</ Link>
+              <Link className={`link ${isContactsPage ? 'active' : ''}`} to={AppRoute.Contacts}>Контакты</ Link>
             </li>
           </ul>
         </nav>
