@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Quest, QuestForPage, Id } from '../types/types';
+import { Quest, QuestForPage, Id, UserData, AuthData } from '../types/types';
 import { AxiosInstance } from 'axios';
+import { dropToken, saveToken } from '../services/token';
 
 export const loadQuestsAction = createAsyncThunk<
   Quest[],
@@ -35,5 +36,23 @@ export const checkAuthAction = createAsyncThunk<
 });
 
 export const loginAction = createAsyncThunk<
-  
->
+  void,
+  UserData,
+  {
+    extra: AxiosInstance;
+  }
+>('login', async({email, password}, {extra: api}) => {
+  const {data: { token }} = await api.post<AuthData>('/login', {email, password});
+  saveToken(token);
+});
+
+export const logoutAction = createAsyncThunk<
+  void,
+  undefined,
+  {
+    extra: AxiosInstance;
+  }
+>('logout', async (_arg, {extra: api}) => {
+  await api.delete('/logout');
+  dropToken();
+});

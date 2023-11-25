@@ -36,3 +36,8 @@ export type AuthData = {
   email: string;
   token: string;
 };
+
+export type UserData = {
+  email: string;
+  password: string;
+}

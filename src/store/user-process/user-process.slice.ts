@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { AuthorizationStatus, NameSpace } from '../../consts';
-import { checkAuthAction } from '../api-actions';
+import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
 
 type InitialState = {
   authorizationStatus: typeof AuthorizationStatus[keyof typeof AuthorizationStatus];
@@ -21,6 +21,12 @@ export const userSlice = createSlice({
       })
       .addCase(checkAuthAction.fulfilled, (state) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
+      })
+      .addCase(loginAction.fulfilled, (state) => {
+        state.authorizationStatus = AuthorizationStatus.Auth;
+      })
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
       });
   },
 });

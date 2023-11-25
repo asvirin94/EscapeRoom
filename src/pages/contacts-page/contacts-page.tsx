@@ -1,5 +1,5 @@
 import Footer from '../../components/footer/footer';
-import ShortHeader from '../../components/header/short-header';
+import Header from '../../components/header/header';
 
 export default function ContactsPage() {
   return (
@@ -298,7 +298,7 @@ export default function ContactsPage() {
         </svg>
       </div>
       <div className="wrapper">
-        <ShortHeader isContactsPage/>
+        <Header isContactsPage/>
         <main className="page-content decorated-page">
           <div className="decorated-page__decor" aria-hidden="true">
             <picture>

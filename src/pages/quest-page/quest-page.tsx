@@ -1,11 +1,11 @@
 import { Link, useParams } from 'react-router-dom';
-import ShortHeader from '../../components/header/short-header';
 import { AppRoute, DifficultLevel, Genre, NameSpace } from '../../consts';
 import Loading from '../../components/loading/loading';
 import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loadQuestForPageAction } from '../../store/api-actions';
 import { dropQuestOnPage } from '../../store/data-process/data-process.slice';
+import Header from '../../components/header/header';
 
 export default function QuestPage() {
   const dispatch = useAppDispatch();
@@ -323,7 +323,7 @@ export default function QuestPage() {
         </svg>
       </div>
       <div className="wrapper">
-        <ShortHeader />
+        <Header />
         <main className="decorated-page quest-page">
           <div className="decorated-page__decor" aria-hidden="true">
             <picture>
