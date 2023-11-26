@@ -24,8 +24,28 @@ export default function BookingForm({minPeople, maxPeople, quest}: Props) {
 
     const checkPeopleCount = (min: number, max: number) => {
       const { peopleCount } = getValues();
+
       const isValidCount = +peopleCount >= min && +peopleCount <= max;
       return isValidCount || `Количество участников в этом квесте может быть от ${min} до ${max}`;
+    };
+
+    const checkUsername = () => {
+      const {userName} = getValues();
+      if(typeof userName === 'string') {
+        const isValidName = /[А-Яа-яЁёA-Za-z' -]{1,}/.test(userName);
+        return isValidName || 'Можно использовать только буквы русского и английского алфавита и дефис';
+      }
+      return 'Можно использовать только буквы русского и английского алфавита и дефис';
+    };
+
+    const checkUserTel = () => {
+      const {userTel} = getValues();
+
+      if(typeof userTel === 'string') {
+        const isValidTel = /[0-9]{10,}/.test(userTel);
+        return isValidTel || 'Можно использовать только цифры, не менее 10';
+      }
+      return 'Можно использовать только цифры';
     };
 
     const onSubmit = () => {
@@ -112,10 +132,10 @@ export default function BookingForm({minPeople, maxPeople, quest}: Props) {
               type="text"
               id="name"
               placeholder="Имя"
-              // pattern="[А-Яа-яЁёA-Za-z'- ]{1,}"
               {...register('userName',
                 {
-                  required: 'Введите имя'
+                  required: 'Введите имя',
+                  validate: checkUsername
                 })}
               aria-invalid={errors.userName ? 'true' : 'false'}
             />
@@ -128,10 +148,10 @@ export default function BookingForm({minPeople, maxPeople, quest}: Props) {
               type="tel"
               id="tel"
               placeholder="Телефон"
-              // pattern="[0-9]{10,}"
               {...register('userTel',
                 {
-                  required: 'Введите телефон'
+                  required: 'Введите телефон',
+                  validate: checkUserTel
                 })}
               aria-invalid={errors.userTel ? 'true' : 'false'}
             />
