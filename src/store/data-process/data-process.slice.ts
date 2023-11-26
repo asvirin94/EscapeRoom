@@ -1,20 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Quest, QuestForPage } from '../../types/types';
+import { BookingInfo, Quest, QuestForPage } from '../../types/types';
 import { NameSpace } from '../../consts';
-import { loadQuestForPageAction, loadQuestsAction } from '../api-actions';
+import { getBookingInfoAction, loadQuestForPageAction, loadQuestsAction } from '../api-actions';
 
 type InitialState = {
   quests: Quest[];
   questForPage: QuestForPage | undefined;
+  bookingInfo: BookingInfo[] | undefined;
   isQuestsLoaded: boolean;
   isQuestForPageLoaded: boolean;
+  isBookingInfoLoaded: boolean;
 }
 
 const initialState: InitialState = {
   quests: [],
   questForPage: undefined,
+  bookingInfo: undefined,
   isQuestsLoaded: false,
-  isQuestForPageLoaded: false
+  isQuestForPageLoaded: false,
+  isBookingInfoLoaded: false
 };
 
 export const dataSlice = createSlice({
@@ -40,6 +44,12 @@ export const dataSlice = createSlice({
       .addCase(loadQuestForPageAction.fulfilled, (state, action) => {
         state.questForPage = action.payload;
         state.isQuestForPageLoaded = true;
+      })
+      .addCase(getBookingInfoAction.pending, (state) => {
+        state.isBookingInfoLoaded = false;
+      })
+      .addCase(getBookingInfoAction.fulfilled, (state, action) => {
+        state.bookingInfo = action.payload;
       });
   },
 });

@@ -45,3 +45,21 @@ export type UserData = {
 export type LocationState = {
   from: string;
 }
+
+export type BookingInfo = {
+  id: string;
+  location: {
+    address: string;
+    coords: [number];
+  };
+  slots: {
+    today: [{
+      time: string;
+      isAvailable: boolean;
+      }];
+    tomorrow: [{
+      time: string;
+      isAvailable: boolean;
+      }];
+  };
+}

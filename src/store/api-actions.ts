@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Quest, QuestForPage, Id, UserData, AuthData } from '../types/types';
+import { Quest, QuestForPage, Id, UserData, AuthData, BookingInfo } from '../types/types';
 import { AxiosInstance } from 'axios';
 import { dropToken, saveToken } from '../services/token';
 
@@ -55,4 +55,15 @@ export const logoutAction = createAsyncThunk<
 >('logout', async (_arg, {extra: api}) => {
   await api.delete('/logout');
   dropToken();
+});
+
+export const getBookingInfoAction = createAsyncThunk<
+  BookingInfo[],
+  Id,
+  {
+    extra: AxiosInstance;
+  }
+>('getBookingInfo', async({id}, {extra: api}) => {
+  const {data} = await api.get<BookingInfo[]>(`quest/${id}/booking`);
+  return data;
 });

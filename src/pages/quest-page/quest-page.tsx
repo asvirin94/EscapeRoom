@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { AppRoute, DifficultLevel, Genre, NameSpace } from '../../consts';
+import { DifficultLevel, Genre, NameSpace } from '../../consts';
 import Loading from '../../components/loading/loading';
 import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -27,7 +27,7 @@ export default function QuestPage() {
   }, []);
 
 
-  return questOnPage ? (
+  return questOnPage && id ? (
     <>
       <div className="visually-hidden">
         <svg
@@ -323,7 +323,7 @@ export default function QuestPage() {
         </svg>
       </div>
       <div className="wrapper">
-        <Header />
+        <Header isMainPage/>
         <main className="decorated-page quest-page">
           <div className="decorated-page__decor" aria-hidden="true">
             <picture>
@@ -365,7 +365,7 @@ export default function QuestPage() {
               </p>
               <Link
                 className="btn btn--accent btn--cta quest-page__btn"
-                to={AppRoute.Booking}
+                to={`/quest/${id}/booking`}
               >Забронировать
               </ Link>
             </div>

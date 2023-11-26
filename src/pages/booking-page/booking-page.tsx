@@ -1,7 +1,26 @@
+import { useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import { useAppDispatch } from '../../hooks';
+import { useEffect } from 'react';
+import { getBookingInfoAction } from '../../store/api-actions';
 
 export default function BookingPage() {
+  const {id} = useParams();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if(id && isMounted) {
+      dispatch(getBookingInfoAction({id}));
+    }
+
+    return (() => {
+      isMounted = false;
+    });
+  }, [id]);
+
   return (
     <>
       <div className="visually-hidden">
@@ -298,7 +317,7 @@ export default function BookingPage() {
         </svg>
       </div>
       <div className="wrapper">
-        <Header />
+        <Header isMainPage/>
         <main className="page-content decorated-page">
           <div className="decorated-page__decor" aria-hidden="true">
             <picture>
