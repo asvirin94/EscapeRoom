@@ -1,34 +1,34 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { BookingInfo, Quest, QuestForPage } from '../../types/types';
+import { BookingInfo, Quest, QuestForPage, Reservation } from '../../types/types';
 import { NameSpace } from '../../consts';
-import { getBookingInfoAction, loadQuestForPageAction, loadQuestsAction } from '../api-actions';
+import { getBookingInfoAction, getReservationsAction, loadQuestForPageAction, loadQuestsAction } from '../api-actions';
 
 type InitialState = {
   quests: Quest[];
   questForPage: QuestForPage | undefined;
   bookingInfo: BookingInfo[] | undefined;
+  reservations: Reservation[] | undefined;
   isQuestsLoaded: boolean;
   isQuestForPageLoaded: boolean;
   isBookingInfoLoaded: boolean;
+  isReservationsLoaded: boolean;
 }
 
 const initialState: InitialState = {
   quests: [],
   questForPage: undefined,
   bookingInfo: undefined,
+  reservations: undefined,
   isQuestsLoaded: false,
   isQuestForPageLoaded: false,
-  isBookingInfoLoaded: false
+  isBookingInfoLoaded: false,
+  isReservationsLoaded: false
 };
 
 export const dataSlice = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {
-    dropQuestOnPage: (state) => {
-      state.questForPage = undefined;
-    }
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(loadQuestsAction.pending, (state) => {
@@ -50,8 +50,13 @@ export const dataSlice = createSlice({
       })
       .addCase(getBookingInfoAction.fulfilled, (state, action) => {
         state.bookingInfo = action.payload;
+      })
+      .addCase(getReservationsAction.pending, (state) => {
+        state.isReservationsLoaded = false;
+      })
+      .addCase(getReservationsAction.fulfilled, (state, action) => {
+        state.reservations = action.payload;
+        state.isReservationsLoaded = true;
       });
   },
 });
-
-export const {dropQuestOnPage} = dataSlice.actions;

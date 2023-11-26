@@ -4,12 +4,12 @@ import Loading from '../../components/loading/loading';
 import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loadQuestForPageAction } from '../../store/api-actions';
-import { dropQuestOnPage } from '../../store/data-process/data-process.slice';
 import Header from '../../components/header/header';
 
 export default function QuestPage() {
   const dispatch = useAppDispatch();
   const {id} = useParams();
+  const isQuestLoaded = useAppSelector((state) => state[NameSpace.Data].isQuestForPageLoaded);
   const questOnPage = useAppSelector((state) => state[NameSpace.Data].questForPage);
   const isInitialized = useRef(false);
 
@@ -18,16 +18,10 @@ export default function QuestPage() {
       dispatch(loadQuestForPageAction({id}));
       isInitialized.current = true;
     }
-
-    return (() => {
-      if(isInitialized.current) {
-        dispatch(dropQuestOnPage());
-      }
-    });
   }, []);
 
 
-  return questOnPage && id ? (
+  return isQuestLoaded && id && questOnPage ? (
     <>
       <div className="visually-hidden">
         <svg

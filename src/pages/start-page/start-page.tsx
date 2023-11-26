@@ -2,7 +2,7 @@ import DifficultFilter from '../../components/difficult-filter/difficult-filter'
 import Footer from '../../components/footer/footer';
 import GenreFilter from '../../components/genre-filter/genre-filter';
 import Header from '../../components/header/header';
-import QuestsList from '../../components/quests-list/quests-list';
+import QuestsList from '../../components/logo/quests-list';
 import StartPageTitle from '../../components/start-page-title/start-page-title';
 
 export default function StartPage() {

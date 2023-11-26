@@ -63,3 +63,39 @@ export type BookingInfo = {
       }];
   };
 }
+
+export type BookingData = {
+  date: string;
+  time: string;
+  contactPerson: string;
+  phone: string;
+  withChildren: boolean;
+  peopleCount: number;
+  placeId: string;
+}
+
+export type BookingDataWithId = BookingData & Id;
+
+export type Reservation = {
+  date: 'today' | 'tomorrow';
+  time: string;
+  contactPerson: string;
+  phone: string;
+  withChildren: boolean;
+  peopleCount: number;
+  id: string;
+  location: {
+    address: string;
+    coords: number[];
+  };
+  quest: {
+    id: string;
+    title: string;
+    previewImg: string;
+    previewImgWebp: string;
+    level: keyof typeof DifficultLevel;
+    Allowed: string;
+    type: string;
+    peopleMinMax: number[];
+  };
+}

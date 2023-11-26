@@ -50,3 +50,8 @@ export const AuthorizationStatus = {
   NoAuth: 'NO_AUTH',
   Unknown: 'UNKNOWN'
 } as const;
+
+export const DateTranslation = {
+  today: 'сегодня',
+  tomorrow: 'завтра'
+};

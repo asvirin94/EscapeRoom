@@ -12,3 +12,14 @@ export const checkPasswordLength = (value: string) => {
   const isValidLength = /^.{3,15}$/.test(value);
   return isValidLength || 'Длина пароля должна быть от 3 до 15 символов';
 };
+
+export const makeTimeSlotId = (time: string) => {
+  const [hours, mins] = time.split(':');
+  return `${hours}h${mins}m`;
+};
+
+export const separateDayTimeString = (value: string) => {
+  const separated = value.match(/(today|tomorrow)(\d{2}:\d{2})/);
+  return separated as RegExpMatchArray;
+};
+

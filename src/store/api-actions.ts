@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Quest, QuestForPage, Id, UserData, AuthData, BookingInfo } from '../types/types';
+import { Quest, QuestForPage, Id, UserData, AuthData, BookingInfo, BookingDataWithId, BookingData, Reservation, AppDispatch } from '../types/types';
 import { AxiosInstance } from 'axios';
 import { dropToken, saveToken } from '../services/token';
 
@@ -66,4 +66,37 @@ export const getBookingInfoAction = createAsyncThunk<
 >('getBookingInfo', async({id}, {extra: api}) => {
   const {data} = await api.get<BookingInfo[]>(`quest/${id}/booking`);
   return data;
+});
+
+export const sendBookingDataAction = createAsyncThunk<
+  void,
+  BookingDataWithId,
+  {
+    extra: AxiosInstance;
+  }
+>('sendBookingData', async ({date, time, contactPerson, phone, withChildren, peopleCount, placeId, id}, {extra: api}) => {
+  await api.post<BookingData>(`quest/${id}/booking`, {date, time, contactPerson, phone, withChildren, peopleCount, placeId});
+});
+
+export const getReservationsAction = createAsyncThunk<
+  Reservation[],
+  undefined,
+  {
+    extra: AxiosInstance;
+  }
+>('getReservations', async (_arg, {extra: api}) => {
+  const {data} = await api.get<Reservation[]>('/reservation');
+  return data;
+});
+
+export const removeFromReservationAction = createAsyncThunk<
+  void,
+  Id,
+  {
+    extra: AxiosInstance;
+    dispatch: AppDispatch;
+  }
+>('removeFromReservation', async ({id}, {dispatch, extra: api}) => {
+  await api.delete(`/reservation/${id}`);
+  dispatch(getReservationsAction());
 });
