@@ -8,6 +8,7 @@ import ContactsPage from '../../pages/contacts-page/contacts-page';
 import AuthorizationPage from '../../pages/authorization-page/authorization-page';
 import BookingPage from '../../pages/booking-page/booking-page';
 import MyQuestsPage from '../../pages/my-quests-page/my-quests-page';
+import PrivateComponent from '../private-component/private-component';
 
 export default function App(): JSX.Element {
   return (
@@ -20,7 +21,7 @@ export default function App(): JSX.Element {
             <Route path={AppRoute.Quest} element={<QuestPage />} />
             <Route path={AppRoute.Login} element={<AuthorizationPage />} />
             <Route path={AppRoute.Booking} element={<BookingPage />} />
-            <Route path={AppRoute.Quests} element={<MyQuestsPage />} />
+            <Route path={AppRoute.Quests} element={<PrivateComponent><MyQuestsPage /></PrivateComponent>} />
           </Route>
           <Route path='*' element={<NotFound />}/>
         </Routes>

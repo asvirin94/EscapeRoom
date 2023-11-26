@@ -16,8 +16,10 @@ export default function AuthorizationPage() {
   const onSubmit = () => {
     const {userEmail, userPassword} = getValues();
     if(typeof userEmail === 'string' && typeof userPassword === 'string') {
-      dispatch(loginAction({email: userEmail, password: userPassword}));
-      navigate(AppRoute.Main);
+      dispatch(loginAction({email: userEmail, password: userPassword}))
+        .then(() => {
+          navigate(AppRoute.Main);
+        });
     }
   };
 
