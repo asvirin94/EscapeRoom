@@ -37,12 +37,7 @@ export default function BookingPage() {
         <main className="page-content decorated-page">
           <div className="decorated-page__decor" aria-hidden="true">
             <picture>
-              <source
-                type="image/webp"
-                srcSet={`${quest.coverImgWebp}, ${quest.coverImgWebp}@2x.webp 2x`}
-              />
               <img
-                src={quest.coverImg}
                 srcSet={quest.coverImg}
                 width="1366"
                 height="1959"

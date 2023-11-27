@@ -5,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loadQuestForPageAction } from '../../store/api-actions';
 import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
 
 export default function QuestPage() {
   const dispatch = useAppDispatch();
@@ -325,13 +326,6 @@ export default function QuestPage() {
                 type="image/webp"
                 srcSet={`${questOnPage.coverImgWebp}, ${questOnPage.coverImgWebp}@2x.webp 2x`}
               />
-              <img
-                src={questOnPage.coverImg}
-                srcSet={`${questOnPage.coverImg}@2x.webp 2x`}
-                width="1366"
-                height="768"
-                alt=""
-              />
             </picture>
           </div>
           <div className="container container--size-l">
@@ -365,66 +359,7 @@ export default function QuestPage() {
             </div>
           </div>
         </main>
-        <footer className="footer">
-          <div className="container container--size-l">
-            <div className="socials">
-              <ul className="socials__list">
-                <li className="socials__item">
-                  <a
-                    className="socials__link"
-                    href="#"
-                    aria-label="Skype"
-                    target="_blank"
-                    rel="nofollow noopener noreferrer"
-                  >
-                    <svg
-                      className="socials__icon socials__icon--default"
-                      width="28"
-                      height="28"
-                      aria-hidden="true"
-                    >
-                      <use xlinkHref="#icon-skype-default"></use>
-                    </svg>
-                    <svg
-                      className="socials__icon socials__icon--interactive"
-                      width="28"
-                      height="28"
-                      aria-hidden="true"
-                    >
-                      <use xlinkHref="#icon-skype-interactive"></use>
-                    </svg>
-                  </a>
-                </li>
-                <li className="socials__item">
-                  <a
-                    className="socials__link"
-                    href="#"
-                    aria-label="ВКонтакте"
-                    target="_blank"
-                    rel="nofollow noopener noreferrer"
-                  >
-                    <svg
-                      className="socials__icon socials__icon--default"
-                      width="28"
-                      height="28"
-                      aria-hidden="true"
-                    >
-                      <use xlinkHref="#icon-vk-default"></use>
-                    </svg>
-                    <svg
-                      className="socials__icon socials__icon--interactive"
-                      width="28"
-                      height="28"
-                      aria-hidden="true"
-                    >
-                      <use xlinkHref="#icon-vk-interactive"></use>
-                    </svg>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   ) : <Loading />;
