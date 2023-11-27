@@ -17,11 +17,11 @@ export default function BookingForm({minPeople, maxPeople, quest}: Props) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const bookingInfo = useAppSelector((state) => state[NameSpace.Data].bookingInfo);
+  const locationId = useAppSelector((state) => state[NameSpace.App].activeLocationId);
   const {register, handleSubmit, formState: { errors }, getValues} = useForm();
+  const location = bookingInfo?.find((locationToFind) => locationToFind.id === locationId);
 
-  if(bookingInfo) {
-    const questOrganization = bookingInfo[0];
-
+  if(location) {
     const checkPeopleCount = (min: number, max: number) => {
       const { peopleCount } = getValues();
 
@@ -61,7 +61,7 @@ export default function BookingForm({minPeople, maxPeople, quest}: Props) {
         phone: userTel as string,
         withChildren: isWithChildren,
         peopleCount: +peopleCount,
-        placeId: questOrganization.id,
+        placeId: location.id,
         id: quest.id
       }))
         .then(() => {
@@ -85,7 +85,7 @@ export default function BookingForm({minPeople, maxPeople, quest}: Props) {
           <fieldset className="booking-form__date-section">
             <legend className="booking-form__date-title">Сегодня</legend>
             <div className="booking-form__date-inner-wrapper">
-              {questOrganization.slots.today.map((slot) => (
+              {location.slots.today.map((slot) => (
                 <label className="custom-radio booking-form__date" key={slot.time}>
                   <input
                     type="radio"
@@ -105,7 +105,7 @@ export default function BookingForm({minPeople, maxPeople, quest}: Props) {
 
             <legend className="booking-form__date-title">Завтра</legend>
             <div className="booking-form__date-inner-wrapper">
-              {questOrganization.slots.tomorrow.map((slot) => (
+              {location.slots.tomorrow.map((slot) => (
                 <label className="custom-radio booking-form__date" key={slot.time}>
                   <input
                     type="radio"

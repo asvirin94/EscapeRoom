@@ -50,7 +50,7 @@ export type BookingInfo = {
   id: string;
   location: {
     address: string;
-    coords: [number];
+    coords: number[];
   };
   slots: {
     today: [{
@@ -63,6 +63,14 @@ export type BookingInfo = {
       }];
   };
 }
+
+export type Locations = {
+  id: string;
+  location: {
+    address: string;
+    coords: number[];
+  };
+}[]
 
 export type BookingData = {
   date: string;

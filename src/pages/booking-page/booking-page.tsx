@@ -2,35 +2,36 @@ import { useParams } from 'react-router-dom';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { getBookingInfoAction, loadQuestForPageAction } from '../../store/api-actions';
 import { NameSpace } from '../../consts';
 import BookingForm from '../../components/booking-form/booking-form';
+import Map from '../../components/map/map';
 
 export default function BookingPage() {
   const {id} = useParams();
   const dispatch = useAppDispatch();
   const quest = useAppSelector((state) => state[NameSpace.Data].questForPage);
   const bookInfo = useAppSelector((state) => state[NameSpace.Data].bookingInfo);
+  const adress = useAppSelector((state) => state[NameSpace.App].activeLocationAdress);
+  const isMounted = useRef(true);
 
   useEffect(() => {
-    let isMounted = true;
-
-    if(id && isMounted) {
+    if(id && isMounted.current) {
       dispatch(getBookingInfoAction({id}));
-      if(!quest) {
-        dispatch(loadQuestForPageAction({id}));
-      }
+      isMounted.current = false;
+    }
+
+    if(id && !quest) {
+      dispatch(loadQuestForPageAction({id}));
     }
 
     return (() => {
-      isMounted = false;
+      isMounted.current = false;
     });
   }, [id]);
 
   if(quest && bookInfo) {
-    const bookOrg = bookInfo[0];
-
     return (
       <div className="wrapper">
         <Header isMainPage/>
@@ -57,10 +58,12 @@ export default function BookingPage() {
             <div className="page-content__item">
               <div className="booking-map">
                 <div className="map">
-                  <div className="map__container"></div>
+                  <div className="map__container">
+                    <Map isBookingPage/>
+                  </div>
                 </div>
                 <p className="booking-map__address">
-                  Вы&nbsp;выбрали: {bookOrg.location.address}
+                  Вы&nbsp;выбрали: {adress}
                 </p>
               </div>
             </div>

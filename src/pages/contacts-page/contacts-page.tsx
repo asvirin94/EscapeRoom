@@ -1,5 +1,6 @@
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
+import Map from '../../components/map/map';
 
 export default function ContactsPage() {
   return (
@@ -360,7 +361,9 @@ export default function ContactsPage() {
               </dl>
               <div className="contacts__map">
                 <div className="map">
-                  <div className="map__container"></div>
+                  <div className="map__container">
+                    <Map />
+                  </div>
                 </div>
               </div>
             </div>

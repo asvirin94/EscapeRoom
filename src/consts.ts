@@ -55,3 +55,15 @@ export const DateTranslation = {
   today: 'сегодня',
   tomorrow: 'завтра'
 };
+
+export const CENTER_COORDINATES = {
+  lat: 59.938676,
+  lng: 30.314494
+};
+
+export const QUEST_OFFICE_COORDINATES = {
+  lat: 59.968322,
+  lng: 30.317359
+};
+
+export const MAP_ZOOM = 10;
