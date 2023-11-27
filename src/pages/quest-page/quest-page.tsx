@@ -322,6 +322,10 @@ export default function QuestPage() {
         <main className="decorated-page quest-page">
           <div className="decorated-page__decor" aria-hidden="true">
             <picture>
+              <source
+                type="image/webp"
+                srcSet={`${questOnPage.coverImgWebp}, ${questOnPage.coverImgWebp}@2x.webp 2x`}
+              />
               <img
                 srcSet={`${questOnPage.coverImg}@2x.webp 2x`}
                 width="1366"
