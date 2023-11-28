@@ -2,8 +2,10 @@ import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { MutableRefObject, useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector, useMap } from '../../hooks';
-import { CENTER_COORDINATES, NameSpace, QUEST_OFFICE_COORDINATES } from '../../consts';
+import { CENTER_COORDINATES, QUEST_OFFICE_COORDINATES } from '../../consts';
 import { setActiveLocationAdress, setActiveLocationId } from '../../store/app-process/app-process.slice';
+import { getBookingInfo } from '../../store/data-process/data-process.selectors';
+import { getActiveLocationId } from '../../store/app-process/app-process.selectors';
 
 type Props = {
   isBookingPage?: boolean;
@@ -11,8 +13,8 @@ type Props = {
 
 export default function Map({isBookingPage}: Props) {
   const dispatch = useAppDispatch();
-  const bookingInfo = useAppSelector((state) => state[NameSpace.Data].bookingInfo);
-  const activeLocationId = useAppSelector((state) => state[NameSpace.App].activeLocationId);
+  const bookingInfo = useAppSelector(getBookingInfo);
+  const activeLocationId = useAppSelector(getActiveLocationId);
   const mapRef = useRef<HTMLDivElement | null>(null);
   const coordinates = isBookingPage ? CENTER_COORDINATES : QUEST_OFFICE_COORDINATES;
   const mapSize = isBookingPage ? '529px' : '370px';
@@ -41,7 +43,8 @@ export default function Map({isBookingPage}: Props) {
 
 
   useEffect(() => {
-    if(bookingInfo) {
+    let isMounted = true;
+    if(bookingInfo && isMounted) {
       const firstActiveLocationId = bookingInfo[0].id;
       const firstActiveLocationAdress = bookingInfo[0].location.address;
       dispatch(setActiveLocationId(firstActiveLocationId));
@@ -51,12 +54,14 @@ export default function Map({isBookingPage}: Props) {
     return (() => {
       dispatch(setActiveLocationId(null));
       dispatch(setActiveLocationAdress(null));
+      isMounted = false;
     });
 
   }, [bookingInfo]);
 
   useEffect(() => {
-    if(map) {
+    let isMounted = true;
+    if(map && isMounted) {
       if (isBookingPage && bookingInfo) {
         markersRef.current.forEach((marker) => marker.remove());
         bookingInfo.forEach((location) => {
@@ -83,6 +88,11 @@ export default function Map({isBookingPage}: Props) {
         markersRef.current.push(marker);
       }
     }
+
+    return (() => {
+      isMounted = false;
+    });
+
   }, [map, activeLocationId, bookingInfo]);
 
   return <div style={{height: mapSize}} ref={mapRef}></div>;

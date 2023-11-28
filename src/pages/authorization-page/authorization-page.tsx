@@ -2,18 +2,19 @@ import Footer from '../../components/footer/footer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, NameSpace } from '../../consts';
+import { AppRoute, AuthorizationStatus } from '../../consts';
 import Header from '../../components/header/header';
 import { useForm } from 'react-hook-form';
 import { checkHasDigits, checkHasLetter, checkPasswordLength } from '../../utils';
 import Loading from '../../components/loading/loading';
 import { LocationState } from '../../types/types';
+import { getUserStatus } from '../../store/user-process/user-process.selectors';
 
 export default function AuthorizationPage() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const userStatus = useAppSelector((state) => state[NameSpace.User].authorizationStatus);
+  const userStatus = useAppSelector(getUserStatus);
   const targetPath = (location.state as LocationState)?.from || AppRoute.Main;
 
   const {register, handleSubmit, formState: { errors }, getValues} = useForm();

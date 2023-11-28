@@ -1,24 +1,29 @@
 import { Link, useParams } from 'react-router-dom';
-import { DifficultLevel, Genre, NameSpace } from '../../consts';
+import { DifficultLevel, Genre } from '../../consts';
 import Loading from '../../components/loading/loading';
 import { useEffect, useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loadQuestForPageAction } from '../../store/api-actions';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
+import { getIsQuestForPageLoaded, getQuestForPage } from '../../store/data-process/data-process.selectors';
 
 export default function QuestPage() {
   const dispatch = useAppDispatch();
   const {id} = useParams();
-  const isQuestLoaded = useAppSelector((state) => state[NameSpace.Data].isQuestForPageLoaded);
-  const questOnPage = useAppSelector((state) => state[NameSpace.Data].questForPage);
+  const isQuestLoaded = useAppSelector(getIsQuestForPageLoaded);
+  const questOnPage = useAppSelector(getQuestForPage);
   const isInitialized = useRef(false);
 
   useEffect(() => {
-    if(id && !isInitialized.current) {
+    let isMounted = true;
+    if(id && !isInitialized.current && isMounted) {
       dispatch(loadQuestForPageAction({id}));
       isInitialized.current = true;
     }
+    return (() => {
+      isMounted = false;
+    });
   }, []);
 
 

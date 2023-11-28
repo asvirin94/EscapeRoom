@@ -4,22 +4,24 @@ import Header from '../../components/header/header';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect, useRef } from 'react';
 import { getBookingInfoAction, loadQuestForPageAction } from '../../store/api-actions';
-import { NameSpace } from '../../consts';
 import BookingForm from '../../components/booking-form/booking-form';
 import Map from '../../components/map/map';
+import { getBookingInfo, getQuestForPage } from '../../store/data-process/data-process.selectors';
+import { getActiveLocationAdress } from '../../store/app-process/app-process.selectors';
 
 export default function BookingPage() {
   const {id} = useParams();
   const dispatch = useAppDispatch();
-  const quest = useAppSelector((state) => state[NameSpace.Data].questForPage);
-  const bookInfo = useAppSelector((state) => state[NameSpace.Data].bookingInfo);
-  const adress = useAppSelector((state) => state[NameSpace.App].activeLocationAdress);
-  const isMounted = useRef(true);
+  const quest = useAppSelector(getQuestForPage);
+  const bookInfo = useAppSelector(getBookingInfo);
+  const adress = useAppSelector(getActiveLocationAdress);
+  const isInitialized = useRef(true);
 
   useEffect(() => {
-    if(id && isMounted.current) {
+    let isMounted = true;
+    if(id && isInitialized.current && isMounted) {
       dispatch(getBookingInfoAction({id}));
-      isMounted.current = false;
+      isInitialized.current = false;
     }
 
     if(id && !quest) {
@@ -27,7 +29,8 @@ export default function BookingPage() {
     }
 
     return (() => {
-      isMounted.current = false;
+      isInitialized.current = false;
+      isMounted = false;
     });
   }, [id]);
 

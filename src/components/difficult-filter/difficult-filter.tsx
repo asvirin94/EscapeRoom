@@ -1,10 +1,11 @@
-import { LevelFilterName, NameSpace } from '../../consts';
+import { LevelFilterName } from '../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getLevelFilter } from '../../store/app-process/app-process.selectors';
 import { setLevelFilter } from '../../store/app-process/app-process.slice';
 
 export default function DifficultFilter() {
   const dispatch = useAppDispatch();
-  const levelFilter = useAppSelector((state) => state[NameSpace.App].level);
+  const levelFilter = useAppSelector(getLevelFilter);
 
   return (
     <fieldset className="filter__section">

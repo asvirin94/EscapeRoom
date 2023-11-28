@@ -1,10 +1,11 @@
-import { GenreFilterName, NameSpace } from '../../consts';
+import { GenreFilterName } from '../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getGenreFilter } from '../../store/app-process/app-process.selectors';
 import { setGenreFilter } from '../../store/app-process/app-process.slice';
 
 export default function GenreFilter() {
   const dispatch = useAppDispatch();
-  const genreFilter = useAppSelector((state) => state[NameSpace.App].type);
+  const genreFilter = useAppSelector(getGenreFilter);
 
   return (
     <fieldset className="filter__section">

@@ -2,16 +2,23 @@ import { useEffect } from 'react';
 import Footer from '../../components/footer/footer';
 import Header from '../../components/header/header';
 import QuestItem from '../../components/quest-item/quest-item';
-import { NameSpace } from '../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getReservationsAction } from '../../store/api-actions';
+import { getReservations } from '../../store/data-process/data-process.selectors';
 
 export default function MyQuestsPage() {
   const dispatch = useAppDispatch();
-  const bookings = useAppSelector((state) => state[NameSpace.Data].reservations);
+  const bookings = useAppSelector(getReservations);
 
   useEffect(() => {
-    dispatch(getReservationsAction());
+    let isMounted = true;
+    if(isMounted) {
+      dispatch(getReservationsAction());
+    }
+
+    return (() => {
+      isMounted = false;
+    });
   }, []);
 
 

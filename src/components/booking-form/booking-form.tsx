@@ -1,11 +1,13 @@
 /* eslint-disable no-console */
 import { useForm } from 'react-hook-form';
-import { AppRoute, NameSpace } from '../../consts';
+import { AppRoute } from '../../consts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { makeTimeSlotId, separateDayTimeString } from '../../utils';
 import { sendBookingDataAction } from '../../store/api-actions';
 import { Quest } from '../../types/types';
 import { useNavigate } from 'react-router-dom';
+import { getBookingInfo } from '../../store/data-process/data-process.selectors';
+import { getActiveLocationId } from '../../store/app-process/app-process.selectors';
 
 type Props = {
   minPeople: number;
@@ -16,8 +18,8 @@ type Props = {
 export default function BookingForm({minPeople, maxPeople, quest}: Props) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const bookingInfo = useAppSelector((state) => state[NameSpace.Data].bookingInfo);
-  const locationId = useAppSelector((state) => state[NameSpace.App].activeLocationId);
+  const bookingInfo = useAppSelector(getBookingInfo);
+  const locationId = useAppSelector(getActiveLocationId);
   const {register, handleSubmit, formState: { errors }, getValues} = useForm();
   const location = bookingInfo?.find((locationToFind) => locationToFind.id === locationId);
 
@@ -42,8 +44,8 @@ export default function BookingForm({minPeople, maxPeople, quest}: Props) {
       const {userTel} = getValues();
 
       if(typeof userTel === 'string') {
-        const isValidTel = /[0-9]{10,}/.test(userTel);
-        return isValidTel || 'Можно использовать только цифры, не менее 10';
+        const isValidTel = /^\+7\(\d{3}\)\d{3}-\d{2}-\d{2}$/.test(userTel);
+        return isValidTel || 'Введите номер в формате +7 (000) 000-00-00';
       }
       return 'Можно использовать только цифры';
     };

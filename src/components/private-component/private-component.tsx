@@ -1,15 +1,16 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, NameSpace } from '../../consts';
+import { AppRoute, AuthorizationStatus } from '../../consts';
 import { useAppSelector } from '../../hooks';
 import Loading from '../loading/loading';
 import { useEffect, useState } from 'react';
+import { getUserStatus } from '../../store/user-process/user-process.selectors';
 
 type Props = {
   children: JSX.Element;
 }
 
 export default function PrivateComponent({children}: Props) {
-  const userStatus = useAppSelector((state) => state[NameSpace.User].authorizationStatus);
+  const userStatus = useAppSelector(getUserStatus);
   const navigate = useNavigate();
   const location = useLocation();
   const [test, setTest] = useState<JSX.Element | null>(null);

@@ -1,16 +1,16 @@
 import { useMemo } from 'react';
-import { GenreFilterName, LevelFilterName, NameSpace } from '../../consts';
+import { GenreFilterName, LevelFilterName } from '../../consts';
 import { useAppSelector } from '../../hooks';
 import Loading from '../loading/loading';
 import QuestItem from '../quest-item/quest-item';
+import { getIsQuestsLoaded, getQuests } from '../../store/data-process/data-process.selectors';
+import { getGenreFilter, getLevelFilter } from '../../store/app-process/app-process.selectors';
 
 export default function QuestsList() {
-  const allQuests = useAppSelector((state) => state[NameSpace.Data].quests);
-  const isQuestsLoaded = useAppSelector(
-    (state) => state[NameSpace.Data].isQuestsLoaded
-  );
-  const genreFilter = useAppSelector((state) => state[NameSpace.App].type);
-  const levelFilter = useAppSelector((state) => state[NameSpace.App].level);
+  const allQuests = useAppSelector(getQuests);
+  const isQuestsLoaded = useAppSelector(getIsQuestsLoaded);
+  const genreFilter = useAppSelector(getGenreFilter);
+  const levelFilter = useAppSelector(getLevelFilter);
 
   const filteredQuests = useMemo(() => {
     if (genreFilter !== GenreFilterName.any && levelFilter !== LevelFilterName.any) {

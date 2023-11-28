@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus, NameSpace } from '../../consts';
+import { AppRoute, AuthorizationStatus } from '../../consts';
 import Logo from '../logo/logo';
 import LoginButton from '../login-button/login-button';
 import { useAppSelector } from '../../hooks';
 import LogoutButton from '../logout-button/logout-button';
+import { getIsAuthorizationComplete, getUserStatus } from '../../store/user-process/user-process.selectors';
 
 type props = {
   isMainPage?: boolean;
@@ -13,8 +14,8 @@ type props = {
 }
 
 export default function Header({isMainPage, isMyQuestsPage, isContactsPage, isAuthPage}: props) {
-  const userStatus = useAppSelector((state) => state[NameSpace.User].authorizationStatus);
-  const isAuthorizationComplete = useAppSelector((state) => state[NameSpace.User].isAuthorizationComplete);
+  const userStatus = useAppSelector(getUserStatus);
+  const isAuthorizationComplete = useAppSelector(getIsAuthorizationComplete);
 
   const buttonElement = () => userStatus === AuthorizationStatus.NoAuth ? <LoginButton /> : <LogoutButton />;
   const isShowButton = userStatus !== AuthorizationStatus.Unknown && !isAuthPage && isAuthorizationComplete;
