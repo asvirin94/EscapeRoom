@@ -35,7 +35,7 @@ export function useMap(mapRef: MutableRefObject<HTMLElement>, place: { lat: numb
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, place]);
+  }, []);
 
   return map;
 }

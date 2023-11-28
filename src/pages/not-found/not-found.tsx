@@ -1,5 +1,7 @@
+import Logo from '../../components/logo/logo';
+
 export default function NotFound() {
   return (
-    <div><b>Not found...</b></div>
+    <div><Logo /><b>Not found...</b></div>
   );
 }
