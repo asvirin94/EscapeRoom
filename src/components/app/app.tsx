@@ -20,7 +20,7 @@ export default function App(): JSX.Element {
             <Route path={AppRoute.Contacts} element={<ContactsPage />}/>
             <Route path={AppRoute.Quest} element={<QuestPage />} />
             <Route path={AppRoute.Login} element={<AuthorizationPage />} />
-            <Route path={AppRoute.Booking} element={<BookingPage />} />
+            <Route path={AppRoute.Booking} element={<PrivateComponent><BookingPage /></PrivateComponent>} />
             <Route path={AppRoute.Quests} element={<PrivateComponent><MyQuestsPage /></PrivateComponent>} />
           </Route>
           <Route path='*' element={<NotFound />}/>
