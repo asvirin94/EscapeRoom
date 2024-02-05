@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
 import { getToken } from './token';
 
-const URL = 'https://grading.design.pages.academy/v1/escape-room/';
+const URL = 'https://grading.design.htmlacademy.pro/v1/escape-room/';
 const TIMEOUT = 5000;
 
 export const createApi = (): AxiosInstance => {
